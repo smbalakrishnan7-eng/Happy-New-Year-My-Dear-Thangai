@@ -2,21 +2,58 @@
 <html>
 <head>
   <title>Happy New Year</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti"></script>
+
   <script>
-    function start(){
-      document.getElementById("msg").innerHTML =
-      "✨ May your 2026 be peaceful, bright, and full of wins! Happy New Year! ✨";
+    let step = 0;
+    const wishes = [
+      "🌟 New year, new strength, new dreams!",
+      "💫 Keep smiling, you make the world brighter!",
+      "🚀 2026 is yours — go shine!"
+    ];
+
+    function nextWish(){
+      if(step < wishes.length){
+        confetti();
+        document.getElementById("msg").innerHTML = wishes[step];
+        step++;
+      } else {
+        document.getElementById("msg").innerHTML = "😌 Now try the New Year quiz below!";
+        document.getElementById("quizBox").style.display = "block";
+      }
+    }
+
+    function check(){
+      let ans = document.getElementById("a").value.toLowerCase();
+      document.getElementById("r").innerHTML =
+      ans === "peace" ? "Correct! 2026 will bring you peace ✨" : "Not quite, try again 😌";
     }
   </script>
+
   <style>
-    body{font-family:Arial, sans-serif; background:white; text-align:center; padding-top:120px;}
-    button{padding:12px 24px; font-size:18px; border-radius:6px; cursor:pointer; border:1px solid #000;}
-    #msg{margin-top:20px; font-size:20px;}
+    body{font-family:Arial; background:white; text-align:center; padding-top:80px;}
+    button{padding:12px 24px; font-size:18px; border-radius:6px; cursor:pointer; border:1px solid black;}
+    #msg{margin-top:20px; font-size:22px; min-height:40px;}
+    #quizBox{display:none; margin-top:40px;}
+    input{padding:8px; font-size:16px; width:200px; border-radius:4px; border:1px solid black;}
+    #r{margin-top:15px; font-size:20px;}
   </style>
 </head>
+
 <body>
   <h1>Happy New Year 🎆</h1>
-  <button onclick="start()">Click for Wish</button>
+  <button onclick="nextWish()">Click for Next Wish</button>
   <div id="msg"></div>
+
+  <div id="quizBox">
+    <h2>What do you wish most for 2026?</h2>
+    <input id="a" placeholder="Type answer..." />
+    <br><br>
+    <button onclick="check()">Submit</button>
+    <div id="r"></div>
+  </div>
+
 </body>
 </html>
+
